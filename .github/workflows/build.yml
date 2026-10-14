@@ -1,0 +1,17 @@
+name: Build lib
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build dylib
+        run: clang -dynamiclib -O3 -o liblzss.dylib lzss/lzss.c
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: lzss-lib
+          path: liblzss.dylib
